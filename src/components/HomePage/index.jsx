@@ -1,6 +1,6 @@
 import React from "react";
 
-import SideMenu from "./SideMenu";
+import SideMenu from "../SideMenu";
 import ChatBot from "./ChatBot";
 import styles from "./styles.module.css";
 

@@ -16,11 +16,6 @@ const SideMenu = () => {
 				/>
 				<h1 className={styles.brand}>{sideMenuObj.topHeader.brand}</h1>
 				<img
-					src={sideMenuObj.topHeader.notificationIcon}
-					alt="notification icon"
-					className={styles.notification_icon}
-				/>
-				<img
 					src={sideMenuObj.topHeader.profileLink}
 					alt="user profile"
 					className={styles.user_profile}
@@ -91,7 +86,7 @@ const SideMenu = () => {
 					</div>
 				</div>
 				<div>
-					<div>
+					<div className={styles.team_members}>
 						<h3 className={styles.menu_title}>
 							{sideMenuObj.teamMembers.title}
 						</h3>

@@ -1,0 +1,21 @@
+.menu_option {
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	align-items: center;
+	padding: 8px 10px;
+}
+
+.icon {
+	width: 24px;
+	height: 24px;
+	margin-right: 12px;
+}
+
+.label {
+	font-size: 14px;
+	font-family: "Proxima Nova";
+	font-weight: 700;
+	line-height: 20px;
+	color: #707070;
+}

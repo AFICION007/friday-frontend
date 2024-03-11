@@ -150,6 +150,10 @@
 	height: 24px;
 }
 
+.team_members {
+	display: none;
+}
+
 .member {
 	display: flex;
 	align-items: center;
