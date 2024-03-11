@@ -2,11 +2,11 @@ import React from "react";
 import { Collapse, Button } from "antd";
 
 import Dashboards from "./Dashboards";
-import OptionContent from "../Global/OptionContent";
+import OptionContent from "../../Global/OptionContent";
 import styles from "./styles.module.css";
-import sideMenuObj from "../constants";
+import sideMenuObj from "../../constants";
 
-import maincarat from "../assets/menuoptions/maincarat.svg";
+import maincarat from "../../assets/menuoptions/maincarat.svg";
 
 const getOption = (option) => {
 	const optionsMapping = {

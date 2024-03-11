@@ -2,3 +2,14 @@
 	display: flex;
 	justify-content: space-between;
 }
+
+.icon_button {
+	margin: 16px;
+	height: 48px;
+	width: 48px !important;
+	box-shadow: none;
+}
+
+.icon_button > span > span {
+	font-size: 18px !important;
+}

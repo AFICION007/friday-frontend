@@ -44,11 +44,15 @@
 		:global(.ant-collapse-content-box) {
 			padding: 8px !important;
 		}
+
+		:global(.ant-collapse-content-box) > :not(:last-child) {
+			margin-bottom: 6px;
+		}
 	}
 }
 
-:global(.ant-collapse-item-active) :global(.ant-collapse-header) {
+/* :global(.ant-collapse-item-active) :global(.ant-collapse-header) {
 	background-color: #f1f4f9 !important;
 	border-bottom-right-radius: 0 !important;
 	border-bottom-left-radius: 0 !important;
-}
+} */

@@ -1,7 +1,7 @@
 import React from "react";
-import { Collapse } from "antd";
+import { Collapse, Button } from "antd";
 
-import OptionContent from "../../Global/OptionContent";
+import OptionContent from "../../../Global/OptionContent";
 import parentStyles from "../styles.module.css";
 
 const Dashboards = ({ dashboards, dashboardIcon, dotIcon }) => {
@@ -15,7 +15,9 @@ const Dashboards = ({ dashboards, dashboardIcon, dotIcon }) => {
 					className={parentStyles.accordion}
 				>
 					{children?.map((option) => (
-						<OptionContent label={option} icon={dotIcon} />
+						<Button className={parentStyles.menu_button}>
+							<OptionContent label={option} icon={dotIcon} />
+						</Button>
 					))}
 				</Collapse.Panel>
 			))}
