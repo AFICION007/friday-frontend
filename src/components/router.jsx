@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import HomePage from "./home";
+import DataConnectors from "./data-connectors";
 import SideMenu from "./side-menu";
 
 import { ThemeProvider } from "@mui/material/styles";
@@ -24,6 +25,10 @@ const Router = () => {
 					<Route
 						path="/"
 						element={<HomePage setMenuOpen={setMenuOpen} />}
+					/>
+					<Route
+						path="/data-sources"
+						element={<DataConnectors setMenuOpen={setMenuOpen} />}
 					/>
 				</Routes>
 			</BrowserRouter>

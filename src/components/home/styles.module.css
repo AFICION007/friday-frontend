@@ -1,17 +1,6 @@
 .main_container {
+	/* justify-content: space-around; */
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
-	/* justify-content: space-around; */
-}
-
-.icon_button {
-	margin: 16px;
-	height: 48px;
-	width: 48px !important;
-	box-shadow: none;
-}
-
-.icon_button > span > span {
-	font-size: 18px !important;
 }

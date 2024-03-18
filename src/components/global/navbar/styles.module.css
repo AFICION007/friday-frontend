@@ -1,0 +1,18 @@
+.container {
+	padding-inline-start: 16px;
+	display: flex;
+	align-items: center;
+	height: 66.67px;
+	background-color: #fff;
+	border-bottom: 1px solid rgba(102, 112, 133, 0.15);
+}
+
+.icon_button {
+	box-shadow: none;
+	width: 48px !important;
+	height: 48px;
+}
+
+.icon_button > span > span {
+	font-size: 18px !important;
+}

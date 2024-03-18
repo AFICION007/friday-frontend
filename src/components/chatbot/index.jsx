@@ -3,26 +3,28 @@ import { Input } from "antd";
 
 import Chat from "./chat";
 import IconButton from "./icon-button";
-import "./styles.css";
-import { chatBotObj } from "../constants";
+import styles from "./styles.module.css";
+import { chatBotObj } from "../home/constants";
 
-const ChatBot = () => {
+const Chatbot = () => {
 	return (
-		<div className="main_container">
-			<div className="top_header">
+		<div className={styles.main_container}>
+			<div className={styles.top_header}>
 				<IconButton icon={chatBotObj.header.more.icon} size="medium" />
-				<h2 className="header_title">{chatBotObj.header.title}</h2>
+				<h2 className={styles.header_title}>
+					{chatBotObj.header.title}
+				</h2>
 			</div>
-			<div className="chat_section">
+			<div className={styles.chat_section}>
 				{chatBotObj.chats.map((chat, index) => (
 					<Chat key={index} chat={chat} />
 				))}
 			</div>
-			<div className="chat_box_container">
+			<div className={styles.chat_box_container}>
 				<Input
 					placeholder={chatBotObj.chatBox.placeholder}
 					suffix={
-						<div className="chat_buttons">
+						<div className={styles.chat_buttons}>
 							{chatBotObj.chatBox.buttons.map(
 								({ icon, onClick }, index) => (
 									<IconButton
@@ -35,11 +37,11 @@ const ChatBot = () => {
 							)}
 						</div>
 					}
-					className="chat_box"
+					className={styles.chat_box}
 				/>
 			</div>
 		</div>
 	);
 };
 
-export default ChatBot;
+export default Chatbot;

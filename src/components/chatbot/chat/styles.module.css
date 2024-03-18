@@ -1,9 +1,9 @@
 .chat {
-	padding: 14px 17px;
-	border-radius: 10px;
-	border: 1px solid #e3e3e3;
 	width: fit-content;
 	margin-bottom: 8px;
+	padding: 14px 17px;
+	border: 1px solid #e3e3e3;
+	border-radius: 10px;
 }
 
 .friday_chat {
@@ -11,13 +11,13 @@
 }
 
 .user_chat {
-	background: #8c71f9;
 	align-self: flex-end;
+	background: #8c71f9;
 }
 
 .message {
-	font-family: Inter;
 	font-size: 14px;
+	font-family: Inter;
 	font-style: normal;
 	font-weight: 400;
 	line-height: 150%;
@@ -32,13 +32,13 @@
 }
 
 .timestamp {
-	color: #667085;
-	font-family: Inter;
+	padding-left: 8px;
 	font-size: 12px;
+	font-family: Inter;
 	font-style: normal;
 	font-weight: 400;
 	line-height: 30px;
-	padding-left: 8px;
+	color: #667085;
 }
 
 .user_timestamp {

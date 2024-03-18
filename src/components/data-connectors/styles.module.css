@@ -1,0 +1,32 @@
+.data_connectors {
+	display: flex;
+	background: #f9fbfc;
+}
+
+.main_container {
+	width: calc(100vw - 350px - 16.67px - 40px);
+	padding: 20px;
+}
+
+.container {
+	margin-bottom: 32px;
+}
+
+.title {
+	font-size: 24px;
+	font-family: "Proxima Nova";
+	font-style: normal;
+	font-weight: 700;
+	line-height: 39px;
+	color: #17181a;
+}
+
+.cards {
+	display: flex;
+	flex-wrap: wrap;
+	row-gap: 30px;
+	column-gap: 27px;
+	box-sizing: border-box;
+	width: 100%;
+	margin-top: 32px;
+}

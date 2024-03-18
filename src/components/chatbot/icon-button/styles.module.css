@@ -1,12 +1,12 @@
 .button {
+	box-shadow: none;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	height: fit-content;
 	padding: 0;
-	border: none;
-	box-shadow: none;
 	background-color: transparent;
+	border: none;
 }
 
 .small .icon {
