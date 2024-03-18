@@ -1,10 +1,11 @@
 import React from "react";
 import { Button } from "antd";
 import { MenuOutlined } from "@ant-design/icons";
-import ChatBot from "./ChatBot";
+
+import Dashboard from "./dashboard";
 import styles from "./styles.module.css";
 
-function HomePage({ setMenuOpen }) {
+function Home({ setMenuOpen }) {
 	return (
 		<div className={styles.main_container}>
 			<Button
@@ -12,9 +13,9 @@ function HomePage({ setMenuOpen }) {
 				onClick={() => setMenuOpen(true)}
 				className={styles.icon_button}
 			/>
-			<ChatBot />
+			<Dashboard />
 		</div>
 	);
 }
 
-export default HomePage;
+export default Home;

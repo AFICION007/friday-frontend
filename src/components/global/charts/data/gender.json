@@ -1,0 +1,120 @@
+{
+	"data": {
+		"rows": [
+			["M", 179973],
+			["F", 120051]
+		],
+		"cols": [
+			{
+				"description": null,
+				"semantic_type": "type/Category",
+				"table_id": 7,
+				"coercion_strategy": null,
+				"name": "gender",
+				"settings": null,
+				"source": "breakout",
+				"field_ref": ["field", 45, null],
+				"effective_type": "type/Text",
+				"parent_id": null,
+				"id": 45,
+				"visibility_type": "normal",
+				"display_name": "Gender",
+				"fingerprint": {
+					"global": {
+						"distinct-count": 2,
+						"nil%": 0.0
+					}
+				},
+				"base_type": "type/Text"
+			},
+			{
+				"base_type": "type/BigInteger",
+				"semantic_type": "type/Quantity",
+				"name": "count",
+				"display_name": "Count",
+				"source": "aggregation",
+				"field_ref": ["aggregation", 0],
+				"effective_type": "type/BigInteger"
+			}
+		],
+		"native_form": {
+			"query": "SELECT `employees`.`gender` AS `gender`, count(*) AS `count` FROM `employees` GROUP BY `employees`.`gender` ORDER BY `count` DESC, `employees`.`gender` ASC",
+			"params": null
+		},
+		"results_timezone": "Etc/UTC",
+		"results_metadata": {
+			"checksum": "IyGkMQTfA7kXxd4qomK1AQ==",
+			"columns": [
+				{
+					"semantic_type": "type/Category",
+					"coercion_strategy": null,
+					"name": "gender",
+					"field_ref": ["field", 45, null],
+					"effective_type": "type/Text",
+					"id": 45,
+					"display_name": "Gender",
+					"fingerprint": {
+						"global": {
+							"distinct-count": 2,
+							"nil%": 0.0
+						}
+					},
+					"base_type": "type/Text"
+				},
+				{
+					"name": "count",
+					"display_name": "Count",
+					"base_type": "type/BigInteger",
+					"effective_type": "type/BigInteger",
+					"semantic_type": "type/Quantity",
+					"field_ref": ["aggregation", 0],
+					"fingerprint": {
+						"global": {
+							"distinct-count": 2,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/Number": {
+								"min": 120051.0,
+								"q1": 120051.0,
+								"q3": 179973.0,
+								"max": 179973.0,
+								"sd": 42371.2525422603,
+								"avg": 150012.0
+							}
+						}
+					}
+				}
+			]
+		},
+		"insights": null
+	},
+	"database_id": 2,
+	"started_at": "2024-03-12T08:08:47.610839Z",
+	"json_query": {
+		"constraints": {
+			"max-results": 10000,
+			"max-results-bare-rows": 2000
+		},
+		"type": "query",
+		"middleware": {
+			"js-int-to-string?": true,
+			"ignore-cached-results?": false,
+			"process-viz-settings?": false
+		},
+		"database": 2,
+		"query": {
+			"source-table": 7,
+			"breakout": [["field", 45, null]],
+			"aggregation": [["count"]],
+			"order-by": [["desc", ["aggregation", 0]]]
+		},
+		"async?": true,
+		"cache-ttl": null
+	},
+	"average_execution_time": null,
+	"status": "completed",
+	"context": "question",
+	"row_count": 2,
+	"running_time": 1027
+}

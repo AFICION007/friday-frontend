@@ -1,8 +1,8 @@
 import React from "react";
 import { Input } from "antd";
 
-import Chat from "./Chat";
-import IconButton from "./IconButton";
+import Chat from "./chat";
+import IconButton from "./icon-button";
 import "./styles.css";
 import { chatBotObj } from "../constants";
 
@@ -24,8 +24,9 @@ const ChatBot = () => {
 					suffix={
 						<div className="chat_buttons">
 							{chatBotObj.chatBox.buttons.map(
-								({ icon, onClick }) => (
+								({ icon, onClick }, index) => (
 									<IconButton
+										key={index}
 										icon={icon}
 										size="small"
 										onClick={onClick}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Collapse, Button } from "antd";
 
-import OptionContent from "../../../Global/OptionContent";
+import OptionContent from "../../../global/option-content";
 import parentStyles from "../styles.module.css";
 
 const Dashboards = ({ dashboards, dashboardIcon, dotIcon }) => {

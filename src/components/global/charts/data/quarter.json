@@ -1,0 +1,148 @@
+{
+	"data": {
+		"rows": [
+			[1, 73689],
+			[2, 74906],
+			[3, 75625],
+			[4, 75804]
+		],
+		"cols": [
+			{
+				"description": null,
+				"semantic_type": null,
+				"table_id": 5,
+				"coercion_strategy": null,
+				"unit": "quarter-of-year",
+				"name": "from_date",
+				"settings": null,
+				"source": "breakout",
+				"field_ref": [
+					"field",
+					38,
+					{
+						"temporal-unit": "quarter-of-year"
+					}
+				],
+				"effective_type": "type/Integer",
+				"parent_id": null,
+				"id": 38,
+				"visibility_type": "normal",
+				"display_name": "From Date",
+				"fingerprint": {
+					"global": {
+						"distinct-count": 4755,
+						"nil%": 0.0
+					},
+					"type": {
+						"type/DateTime": {
+							"earliest": "1985-02-02",
+							"latest": "2002-07-29"
+						}
+					}
+				},
+				"base_type": "type/Integer"
+			},
+			{
+				"base_type": "type/BigInteger",
+				"semantic_type": "type/Quantity",
+				"name": "count",
+				"display_name": "Count",
+				"source": "aggregation",
+				"field_ref": ["aggregation", 0],
+				"effective_type": "type/BigInteger"
+			}
+		],
+		"native_form": {
+			"query": "SELECT quarter(`current_dept_emp`.`from_date`) AS `from_date`, count(*) AS `count` FROM `current_dept_emp` GROUP BY quarter(`current_dept_emp`.`from_date`) ORDER BY quarter(`current_dept_emp`.`from_date`) ASC",
+			"params": null
+		},
+		"results_timezone": "Etc/UTC",
+		"results_metadata": {
+			"checksum": "MOtn+sWi5Qe4ytSpJsglbg==",
+			"columns": [
+				{
+					"semantic_type": null,
+					"coercion_strategy": null,
+					"unit": "quarter-of-year",
+					"name": "from_date",
+					"field_ref": [
+						"field",
+						38,
+						{
+							"temporal-unit": "quarter-of-year"
+						}
+					],
+					"effective_type": "type/Integer",
+					"id": 38,
+					"display_name": "From Date",
+					"fingerprint": {
+						"global": {
+							"distinct-count": 4755,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/DateTime": {
+								"earliest": "1985-02-02",
+								"latest": "2002-07-29"
+							}
+						}
+					},
+					"base_type": "type/Integer"
+				},
+				{
+					"name": "count",
+					"display_name": "Count",
+					"base_type": "type/BigInteger",
+					"effective_type": "type/BigInteger",
+					"semantic_type": "type/Quantity",
+					"field_ref": ["aggregation", 0],
+					"fingerprint": {
+						"global": {
+							"distinct-count": 4,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/Number": {
+								"min": 73689.0,
+								"q1": 74297.5,
+								"q3": 75714.5,
+								"max": 75804.0,
+								"sd": 959.9399286760952,
+								"avg": 75006.0
+							}
+						}
+					}
+				}
+			]
+		},
+		"insights": null
+	},
+	"database_id": 2,
+	"started_at": "2024-03-13T08:08:18.560863Z",
+	"json_query": {
+		"type": "query",
+		"database": 2,
+		"query": {
+			"source-table": 5,
+			"breakout": [
+				[
+					"field",
+					38,
+					{
+						"temporal-unit": "quarter-of-year"
+					}
+				]
+			],
+			"aggregation": [["count"]]
+		},
+		"middleware": {
+			"js-int-to-string?": true,
+			"add-default-userland-constraints?": true
+		}
+	},
+	"average_execution_time": null,
+	"status": "completed",
+	"context": "ad-hoc",
+	"row_count": 4,
+	"running_time": 12302
+}

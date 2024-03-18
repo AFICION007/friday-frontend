@@ -1,0 +1,151 @@
+{
+	"data": {
+		"rows": [
+			[1, 8632],
+			[2, 8636],
+			[3, 8580],
+			[4, 8422],
+			[5, 8530],
+			[6, 248827],
+			[7, 8397]
+		],
+		"cols": [
+			{
+				"description": null,
+				"semantic_type": null,
+				"table_id": 5,
+				"coercion_strategy": null,
+				"unit": "day-of-week",
+				"name": "to_date",
+				"settings": null,
+				"source": "breakout",
+				"field_ref": [
+					"field",
+					39,
+					{
+						"temporal-unit": "day-of-week"
+					}
+				],
+				"effective_type": "type/Integer",
+				"parent_id": null,
+				"id": 39,
+				"visibility_type": "normal",
+				"display_name": "To Date",
+				"fingerprint": {
+					"global": {
+						"distinct-count": 1568,
+						"nil%": 0.0
+					},
+					"type": {
+						"type/DateTime": {
+							"earliest": "1985-08-08",
+							"latest": "9999-01-01"
+						}
+					}
+				},
+				"base_type": "type/Integer"
+			},
+			{
+				"base_type": "type/BigInteger",
+				"semantic_type": "type/Quantity",
+				"name": "count",
+				"display_name": "Count",
+				"source": "aggregation",
+				"field_ref": ["aggregation", 0],
+				"effective_type": "type/BigInteger"
+			}
+		],
+		"native_form": {
+			"query": "SELECT dayofweek(`current_dept_emp`.`to_date`) AS `to_date`, count(*) AS `count` FROM `current_dept_emp` GROUP BY dayofweek(`current_dept_emp`.`to_date`) ORDER BY dayofweek(`current_dept_emp`.`to_date`) ASC",
+			"params": null
+		},
+		"results_timezone": "Etc/UTC",
+		"results_metadata": {
+			"checksum": "rByWcFcXC5bmafKk8Ol9ww==",
+			"columns": [
+				{
+					"semantic_type": null,
+					"coercion_strategy": null,
+					"unit": "day-of-week",
+					"name": "to_date",
+					"field_ref": [
+						"field",
+						39,
+						{
+							"temporal-unit": "day-of-week"
+						}
+					],
+					"effective_type": "type/Integer",
+					"id": 39,
+					"display_name": "To Date",
+					"fingerprint": {
+						"global": {
+							"distinct-count": 1568,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/DateTime": {
+								"earliest": "1985-08-08",
+								"latest": "9999-01-01"
+							}
+						}
+					},
+					"base_type": "type/Integer"
+				},
+				{
+					"name": "count",
+					"display_name": "Count",
+					"base_type": "type/BigInteger",
+					"effective_type": "type/BigInteger",
+					"semantic_type": "type/Quantity",
+					"field_ref": ["aggregation", 0],
+					"fingerprint": {
+						"global": {
+							"distinct-count": 7,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/Number": {
+								"min": 8397.0,
+								"q1": 8449.0,
+								"q3": 8635.0,
+								"max": 248827.0,
+								"sd": 90822.70710906523,
+								"avg": 42860.57142857143
+							}
+						}
+					}
+				}
+			]
+		},
+		"insights": null
+	},
+	"database_id": 2,
+	"started_at": "2024-03-13T08:08:16.593778Z",
+	"json_query": {
+		"type": "query",
+		"database": 2,
+		"query": {
+			"source-table": 5,
+			"breakout": [
+				[
+					"field",
+					39,
+					{
+						"temporal-unit": "day-of-week"
+					}
+				]
+			],
+			"aggregation": [["count"]]
+		},
+		"middleware": {
+			"js-int-to-string?": true,
+			"add-default-userland-constraints?": true
+		}
+	},
+	"average_execution_time": null,
+	"status": "completed",
+	"context": "ad-hoc",
+	"row_count": 7,
+	"running_time": 13867
+}

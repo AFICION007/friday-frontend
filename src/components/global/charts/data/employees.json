@@ -1,0 +1,183 @@
+{
+	"data": {
+		"rows": [
+			["1952-01-01T00:00:00Z", 21209, 2120],
+			["1953-01-01T00:00:00Z", 22857, 2285],
+			["1954-01-01T00:00:00Z", 23228, 2322],
+			["1955-01-01T00:00:00Z", 23104, 2310],
+			["1956-01-01T00:00:00Z", 23051, 2305],
+			["1957-01-01T00:00:00Z", 22850, 2285],
+			["1958-01-01T00:00:00Z", 23276, 2327],
+			["1959-01-01T00:00:00Z", 23311, 2331],
+			["1960-01-01T00:00:00Z", 23126, 2312],
+			["1961-01-01T00:00:00Z", 23065, 2306],
+			["1962-01-01T00:00:00Z", 23014, 2301],
+			["1963-01-01T00:00:00Z", 23080, 2308],
+			["1964-01-01T00:00:00Z", 22913, 2291],
+			["1965-01-01T00:00:00Z", 1940, 194]
+		],
+		"cols": [
+			{
+				"description": null,
+				"semantic_type": null,
+				"table_id": 7,
+				"coercion_strategy": null,
+				"unit": "year",
+				"name": "birth_date",
+				"settings": null,
+				"source": "breakout",
+				"field_ref": [
+					"field",
+					48,
+					{
+						"temporal-unit": "year"
+					}
+				],
+				"effective_type": "type/Date",
+				"parent_id": null,
+				"id": 48,
+				"visibility_type": "normal",
+				"display_name": "Birth Date",
+				"fingerprint": {
+					"global": {
+						"distinct-count": 4172,
+						"nil%": 0.0
+					},
+					"type": {
+						"type/DateTime": {
+							"earliest": "1952-02-02",
+							"latest": "1965-02-01"
+						}
+					}
+				},
+				"base_type": "type/Date"
+			},
+			{
+				"base_type": "type/BigInteger",
+				"semantic_type": "type/Quantity",
+				"name": "count",
+				"display_name": "Count",
+				"source": "aggregation",
+				"field_ref": ["aggregation", 0],
+				"effective_type": "type/BigInteger"
+			},
+			{
+				"display_name": "Count 2"
+			}
+		],
+		"native_form": {
+			"query": "SELECT makedate(year(`employees`.`birth_date`), 1) AS `birth_date`, count(*) AS `count` FROM `employees` GROUP BY makedate(year(`employees`.`birth_date`), 1) ORDER BY makedate(year(`employees`.`birth_date`), 1) ASC",
+			"params": null
+		},
+		"results_timezone": "Etc/UTC",
+		"results_metadata": {
+			"checksum": "m7+/POjfk9DAP4hFMbgXeA==",
+			"columns": [
+				{
+					"semantic_type": null,
+					"coercion_strategy": null,
+					"unit": "year",
+					"name": "birth_date",
+					"field_ref": [
+						"field",
+						48,
+						{
+							"temporal-unit": "year"
+						}
+					],
+					"effective_type": "type/Date",
+					"id": 48,
+					"display_name": "Birth Date",
+					"fingerprint": {
+						"global": {
+							"distinct-count": 4172,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/DateTime": {
+								"earliest": "1952-02-02",
+								"latest": "1965-02-01"
+							}
+						}
+					},
+					"base_type": "type/Date"
+				},
+				{
+					"name": "count",
+					"display_name": "Count",
+					"base_type": "type/BigInteger",
+					"effective_type": "type/BigInteger",
+					"semantic_type": "type/Quantity",
+					"field_ref": ["aggregation", 0],
+					"fingerprint": {
+						"global": {
+							"distinct-count": 14,
+							"nil%": 0.0
+						},
+						"type": {
+							"type/Number": {
+								"min": 1940.0,
+								"q1": 22857.0,
+								"q3": 23126.0,
+								"max": 23311.0,
+								"sd": 5633.3536456273805,
+								"avg": 21430.285714285714
+							}
+						}
+					}
+				}
+			]
+		},
+		"insights": [
+			{
+				"previous-value": 22913,
+				"unit": "year",
+				"offset": 15087.571497870056,
+				"last-change": -0.9153319076506786,
+				"col": "count",
+				"slope": -1.5099902907786351,
+				"last-value": 1940,
+				"best-fit": [
+					"+",
+					15087.571497870056,
+					["*", -1.5099902907786351, "x"]
+				]
+			}
+		]
+	},
+	"database_id": 2,
+	"started_at": "2024-03-12T08:08:47.545451Z",
+	"json_query": {
+		"constraints": {
+			"max-results": 10000,
+			"max-results-bare-rows": 2000
+		},
+		"type": "query",
+		"middleware": {
+			"js-int-to-string?": true,
+			"ignore-cached-results?": false,
+			"process-viz-settings?": false
+		},
+		"database": 2,
+		"query": {
+			"source-table": 7,
+			"breakout": [
+				[
+					"field",
+					48,
+					{
+						"temporal-unit": "year"
+					}
+				]
+			],
+			"aggregation": [["count"]]
+		},
+		"async?": true,
+		"cache-ttl": null
+	},
+	"average_execution_time": null,
+	"status": "completed",
+	"context": "question",
+	"row_count": 14,
+	"running_time": 958
+}

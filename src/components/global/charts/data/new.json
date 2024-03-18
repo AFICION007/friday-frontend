@@ -1,0 +1,20 @@
+[
+	{
+		"type": "category",
+		"value": null,
+		"id": "-502655720",
+		"target": ["dimension", ["field", 45, null]]
+	},
+	{
+		"type": "date/all-options",
+		"value": null,
+		"id": "-255266331",
+		"target": ["dimension", ["field", 46, null]]
+	},
+	{
+		"type": "date/all-options",
+		"value": null,
+		"id": "-1118746000",
+		"target": ["dimension", ["field", 48, null]]
+	}
+]

@@ -1,7 +1,7 @@
 import React from "react";
 import { Input } from "antd";
 
-import MenuOptions from "./MenuOptions";
+import MenuOptions from "./menu-options";
 import styles from "./styles.module.css";
 import sideMenuObj from "../constants";
 

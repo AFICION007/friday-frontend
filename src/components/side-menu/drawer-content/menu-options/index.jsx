@@ -1,8 +1,8 @@
 import React from "react";
 import { Collapse, Button } from "antd";
 
-import Dashboards from "./Dashboards";
-import OptionContent from "../../Global/OptionContent";
+import Dashboards from "./dashboards";
+import OptionContent from "../../global/option-content";
 import styles from "./styles.module.css";
 import sideMenuObj from "../../constants";
 

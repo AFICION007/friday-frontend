@@ -1,7 +1,7 @@
 import React from "react";
 import { Drawer } from "antd";
 
-import DrawerContent from "./DrawerContent";
+import DrawerContent from "./drawer-content";
 import styles from "./styles.module.css";
 
 const SideMenu = ({ menuOpen, setMenuOpen }) => {
