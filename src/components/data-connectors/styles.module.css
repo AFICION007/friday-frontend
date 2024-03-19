@@ -25,3 +25,11 @@
 	width: 100%;
 	margin-top: 32px;
 }
+
+.upload_container {
+	padding-block: 32px 16px;
+	padding-inline: 16px;
+	width: 100%;
+	background-color: #fff;
+	border-radius: 10px;
+}

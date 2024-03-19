@@ -1,19 +1,101 @@
 .error {
-	color: #e11d48;
 	margin-bottom: 0;
+	color: #e11d48;
 }
 
-.half_date {
+.text {
+	height: 45px;
+	background-color: #f1f4f9;
+	border: 1px solid #c8d6e1;
+}
+
+.text::placeholder {
+	font-size: 16px;
+	font-family: "Proxima Nova";
+	font-weight: 500;
+	line-height: 22px;
+	color: rgba(128, 159, 184, 0.76);
+}
+
+.number {
 	width: 100%;
+	height: 45px;
+	background-color: #f1f4f9;
+	border: 1px solid #c8d6e1;
+
+	:global(.ant-input-number-input)::placeholder {
+		font-size: 16px;
+		font-family: "Proxima Nova";
+		font-weight: 500;
+		line-height: 22px;
+		color: rgba(128, 159, 184, 0.76);
+	}
 }
 
-.half_number {
-	width: 100%;
+.password {
+	:global(.ant-input)::placeholder {
+		font-size: 22px;
+		font-family: "Proxima Nova";
+		font-weight: 500;
+		line-height: 22px;
+		color: rgba(128, 159, 184, 0.76);
+	}
 }
 
-.full_select {
+.select {
 	flex-shrink: 0;
 	flex-basis: 100%;
 	width: 100%;
 	margin-bottom: 0px;
+
+	:global(.ant-select-selector) {
+		background-color: #f1f4f9 !important;
+		border: 1px solid #c8d6e1 !important;
+		height: 45px !important;
+	}
+
+	:global(.ant-select-selection-placeholder) {
+		font-size: 16px;
+		font-family: "Proxima Nova";
+		font-weight: 500;
+		line-height: 22px;
+		color: rgba(128, 159, 184, 0.76);
+	}
+}
+
+/* Toggle styles start*/
+
+.toggle {
+	display: flex;
+	justify-content: space-between;
+}
+
+.left {
+	display: flex;
+	flex-direction: column;
+}
+
+.label {
+	font-size: 16px;
+	font-family: "Proxima Nova";
+	font-weight: 700;
+	line-height: 30px;
+	color: #17181a;
+}
+
+.placeholder {
+	font-size: 14px;
+	font-family: "Proxima Nova";
+	font-weight: 500;
+	color: #707070;
+}
+
+.switch {
+	margin-top: 4px;
+}
+
+/* Toggle styles end*/
+
+.date {
+	width: 100%;
 }

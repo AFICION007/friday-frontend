@@ -1,8 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import CustomButton from "../../global/custom-button";
 import styles from "./styles.module.css";
 
 const DataCard = ({ status, type, cardInfo }) => {
+	const navigate = useNavigate();
+
 	const cardsMapping = {
 		connected_database: (
 			<>
@@ -29,7 +32,14 @@ const DataCard = ({ status, type, cardInfo }) => {
 				/>
 			</>
 		),
-		disconnected: <CustomButton buttonText="Connect" />,
+		disconnected: (
+			<CustomButton
+				buttonText="Connect"
+				onClick={() =>
+					navigate(`connect-new-data-source/${cardInfo.value}`)
+				}
+			/>
+		),
 	};
 
 	return (

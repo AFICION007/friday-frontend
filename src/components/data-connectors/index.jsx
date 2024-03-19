@@ -1,6 +1,7 @@
 import React from "react";
 
 import DataCard from "./data-card";
+import UploadButton from "../global/upload-button";
 import styles from "./styles.module.css";
 import dataConnectorsObj from "./constants";
 
@@ -26,6 +27,16 @@ const DataConnectors = () => {
 					</div>
 				</div>
 			))}
+			<div className={styles.container}>
+				<span className={styles.title}>Upload Files</span>
+				<div className={styles.upload_container}>
+					<UploadButton
+						size="large"
+						buttonTitle="Drag & Drop files or Click to Browse Your Files in PC"
+						buttonSubtitle="Supported formats: MySQL DB, PDF, Excel, Word, and PNG"
+					/>
+				</div>
+			</div>
 		</div>
 	);
 };

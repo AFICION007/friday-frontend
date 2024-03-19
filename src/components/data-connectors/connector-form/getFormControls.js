@@ -38,7 +38,7 @@ const formControlsMapping = {
 		},
 		{
 			label: "Secret key",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "secret_key",
 		},
@@ -83,7 +83,7 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
@@ -135,8 +135,9 @@ const formControlsMapping = {
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -168,7 +169,7 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
@@ -181,13 +182,14 @@ const formControlsMapping = {
 		{
 			label: "Use a secure connection (SSL)",
 			placeholder: "",
-			type: "checkbox",
+			type: "toggle",
 			name: "use_a_secure_connection_(ssl)",
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -219,20 +221,21 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
 		{
 			label: "Use a secure connection (SSL)",
 			placeholder: "",
-			type: "checkbox",
+			type: "toggle",
 			name: "use_a_secure_connection_(ssl)",
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -264,7 +267,7 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
@@ -277,13 +280,14 @@ const formControlsMapping = {
 		{
 			label: "Use a secure connection (SSL)",
 			placeholder: "",
-			type: "checkbox",
+			type: "toggle",
 			name: "use_a_secure_connection_(ssl)",
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -321,14 +325,14 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
 		{
 			label: "Use a secure connection (SSL)",
 			placeholder: "",
-			type: "checkbox",
+			type: "toggle",
 			name: "use_a_secure_connection_(ssl)",
 		},
 	],
@@ -353,7 +357,7 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
@@ -395,8 +399,9 @@ const formControlsMapping = {
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -428,14 +433,15 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],
@@ -479,14 +485,14 @@ const formControlsMapping = {
 		},
 		{
 			label: "Password",
-			placeholder: "",
+			placeholder: "••••••••",
 			type: "password",
 			name: "password",
 		},
 		{
 			label: "Use a secure connection (SSL)",
 			placeholder: "",
-			type: "checkbox",
+			type: "toggle",
 			name: "use_a_secure_connection_(ssl)",
 		},
 		{
@@ -497,8 +503,9 @@ const formControlsMapping = {
 		},
 		{
 			label: "Use an SSH-tunnel",
-			placeholder: "",
-			type: "checkbox",
+			placeholder:
+				"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
+			type: "toggle",
 			name: "use_an_ssh-tunnel",
 		},
 	],

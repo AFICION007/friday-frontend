@@ -1,3 +1,18 @@
+export const dataSourcesMapping = {
+	amazon_athena: "Amazon Athena",
+	amazon_redshift: "Amazon Redshift",
+	bigquery: "BigQuery",
+	druid: "Druid",
+	mongodb: "MongoDB",
+	mysql: "MySQL",
+	postgresql: "PostgreSQL",
+	presto: "Presto",
+	snowflake: "Snowflake",
+	spark_sql: "Spark SQL",
+	sql_server: "SQL Server",
+	sqlite: "SQLite",
+};
+
 const dataConnectorsObj = {
 	dataSourcesFiles: {
 		title: "Connected Data Sources & Files",

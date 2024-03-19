@@ -1,0 +1,59 @@
+.main_container {
+	height: 175px;
+	padding: 12px 18px;
+	background-color: #f9fbfc;
+	border-radius: 15px;
+}
+
+.uploader {
+	:global(.ant-upload) {
+		background-color: transparent !important;
+		border-color: #667085 !important;
+	}
+}
+
+.large_container {
+}
+
+.text {
+	display: flex;
+	flex-direction: column;
+}
+
+.title {
+	font-size: 16px;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: 700;
+	line-height: 24px;
+	color: #667085;
+	text-align: center;
+}
+
+.subtitle {
+	font-size: 12px;
+	font-family: Mulish;
+	font-style: normal;
+	font-weight: 400;
+	line-height: 18px;
+	color: rgba(102, 112, 133, 0.71);
+	text-align: center;
+}
+
+.regular_button {
+	height: fit-content;
+	padding: 16px;
+	background-color: #f1f4f9;
+	border: 1px solid #c8d6e1;
+}
+
+.regular_container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
+.regular_container > :first-child {
+	width: 40px;
+	margin-right: 18px;
+}
