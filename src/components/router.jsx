@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
+import Layout from "./layout";
 import HomePage from "./home";
 import DataConnectors from "./data-connectors";
-import SideMenu from "./side-menu";
 
 import { ThemeProvider } from "@mui/material/styles";
 import { createTheme } from "../theme/index";
@@ -16,23 +17,21 @@ const theme = createTheme({
 });
 
 const Router = () => {
-	const [menuOpen, setMenuOpen] = useState(false);
-
 	return (
 		<ThemeProvider theme={theme}>
 			<BrowserRouter>
 				<Routes>
-					<Route
-						path="/"
-						element={<HomePage setMenuOpen={setMenuOpen} />}
-					/>
-					<Route
-						path="/data-sources"
-						element={<DataConnectors setMenuOpen={setMenuOpen} />}
-					/>
+					<Route path="/" element={<Layout />}>
+						<Route path="" element={<HomePage />} />
+						<Route path="data-sources" element={<DataConnectors />}>
+							<Route
+								path="connect-new-data-source/:dataSourceId"
+								element={<DataConnectors />}
+							></Route>
+						</Route>
+					</Route>
 				</Routes>
 			</BrowserRouter>
-			<SideMenu menuOpen={menuOpen} setMenuOpen={setMenuOpen} />
 		</ThemeProvider>
 	);
 };

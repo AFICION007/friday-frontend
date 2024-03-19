@@ -1,0 +1,9 @@
+.main_container {
+	display: flex;
+	background: #f9fbfc;
+	width: 100%;
+}
+
+.left_container {
+	flex-grow: 1;
+}

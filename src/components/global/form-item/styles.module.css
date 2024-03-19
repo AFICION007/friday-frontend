@@ -1,0 +1,19 @@
+.error {
+	color: #e11d48;
+	margin-bottom: 0;
+}
+
+.half_date {
+	width: 100%;
+}
+
+.half_number {
+	width: 100%;
+}
+
+.full_select {
+	flex-shrink: 0;
+	flex-basis: 100%;
+	width: 100%;
+	margin-bottom: 0px;
+}

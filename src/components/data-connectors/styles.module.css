@@ -1,8 +1,3 @@
-.data_connectors {
-	display: flex;
-	background: #f9fbfc;
-}
-
 .main_container {
 	width: calc(100vw - 350px - 16.67px - 40px);
 	padding: 20px;

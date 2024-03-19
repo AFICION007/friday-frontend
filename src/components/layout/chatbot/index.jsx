@@ -4,7 +4,7 @@ import { Input } from "antd";
 import Chat from "./chat";
 import IconButton from "./icon-button";
 import styles from "./styles.module.css";
-import { chatBotObj } from "../home/constants";
+import { chatBotObj } from "../constants";
 
 const Chatbot = () => {
 	return (
