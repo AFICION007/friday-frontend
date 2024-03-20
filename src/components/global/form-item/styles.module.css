@@ -42,6 +42,10 @@
 	}
 }
 
+.textarea {
+	min-height: 90.74px !important;
+}
+
 .select {
 	flex-shrink: 0;
 	flex-basis: 100%;
@@ -76,7 +80,7 @@
 }
 
 .label {
-	font-size: 16px;
+	font-size: 15px;
 	font-family: "Proxima Nova";
 	font-weight: 700;
 	line-height: 30px;

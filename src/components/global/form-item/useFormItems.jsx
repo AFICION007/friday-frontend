@@ -44,7 +44,13 @@ const useFormItems = (
 		),
 
 		textarea: (
-			<Input.TextArea {...field} placeholder={placeholder} size="large" />
+			<Input.TextArea
+				{...field}
+				placeholder={placeholder}
+				size="large"
+				rows={3}
+				className={`${styles.text} ${styles.textarea}`}
+			/>
 		),
 
 		select: (
