@@ -8,7 +8,7 @@ import useFormItems from "../../global/form-item/useFormItems";
 import styles from "./styles.module.css";
 import useFormControlsMapping, {
 	useSshEnabledFormControls,
-} from "./getFormControls";
+} from "./useFormControls";
 import { dataSourcesMapping } from "../constants";
 
 const ConnectorForm = () => {
