@@ -1,28 +1,32 @@
 import React from "react";
-import useAxios from "axios-hooks";
+import NumberCard from "../../../global/charts/number-card";
 import SharpLine from "../../../global/charts/sharp-line";
+import useGetDashcard from "../../hooks/useGetDashcard";
 
-const Dashcard = ({ cardId, resultMetadata }) => {
-	const [{ data, loading, error }, refetch] = useAxios({
-		url: `http://159.65.156.217:3000/api/card/${cardId}/query/json`,
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-			"X-Metabase-Session": "e7b2c641-a8ec-45c9-b0e1-4d79333eda1d",
-		},
-	});
+const Dashcard = ({ dashcard }) => {
+	const { data, loading, error } = useGetDashcard(dashcard.card_id);
 
-	useEffect(() => {
-		refetch();
-	}, [id]);
+	console.log("dashcard", dashcard);
 
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error.message}</div>;
 
 	return (
-		<div>
-			<SharpLine data={data} resultMetadata={resultMetadata} />
-		</div>
+		<>
+			{data &&
+				(dashcard.card.display === "scalar" ? (
+					<NumberCard
+						number={data[0].Count}
+						title={dashcard.card.name}
+					/>
+				) : (
+					<SharpLine
+						title={dashcard.card.name}
+						data={data}
+						resultMetadata={dashcard.card.result_metadata}
+					/>
+				))}
+		</>
 	);
 };
 

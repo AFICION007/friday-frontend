@@ -57,26 +57,26 @@ const sideMenuObj = {
 				icon: dashboard,
 				dashboardIcon: dashboardicon,
 				dotIcon: dot,
-				dashboards: [
-					{
-						label: "Marketing Dashboard",
-					},
-					{
-						label: "Finance Dashboards",
-					},
-					{
-						label: "HR Dashboards",
-					},
-					{
-						label: "Sales Overview",
-						children: [
-							"Audience",
-							"Payouts",
-							"Workflows",
-							"Recent Customers",
-						],
-					},
-				],
+				// dashboards: [
+				// 	{
+				// 		label: "Marketing Dashboard",
+				// 	},
+				// 	{
+				// 		label: "Finance Dashboards",
+				// 	},
+				// 	{
+				// 		label: "HR Dashboards",
+				// 	},
+				// 	{
+				// 		label: "Sales Overview",
+				// 		children: [
+				// 			"Audience",
+				// 			"Payouts",
+				// 			"Workflows",
+				// 			"Recent Customers",
+				// 		],
+				// 	},
+				// ],
 			},
 		],
 	},

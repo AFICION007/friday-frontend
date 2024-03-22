@@ -1,7 +1,7 @@
 import React from "react";
 import { Collapse, Button } from "antd";
 
-import Dashboards from "./dashboards";
+import DashboardFolders from "./dashboard-folders";
 import OptionContent from "../../global/option-content";
 import styles from "./styles.module.css";
 import sideMenuObj from "../../constants";
@@ -25,7 +25,7 @@ const getOption = (option) => {
 					header={<OptionContent {...option} />}
 					className={styles.main_accordion}
 				>
-					<Dashboards {...option} />
+					<DashboardFolders {...option} />
 				</Collapse.Panel>
 			</Collapse>
 		),

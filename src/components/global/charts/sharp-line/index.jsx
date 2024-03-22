@@ -1,4 +1,3 @@
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardHeader from "@mui/material/CardHeader";
@@ -61,7 +60,7 @@ const useChartOptions = () => {
 	};
 };
 
-const SharpLine = ({ data, resultMetadata }) => {
+const SharpLine = ({ title, data, resultMetadata }) => {
 	const options = useChartOptions();
 	const { chartOptions, chartSeries } = getChartData(
 		data,
@@ -70,28 +69,18 @@ const SharpLine = ({ data, resultMetadata }) => {
 	);
 
 	return (
-		<Box
-			sx={{
-				backgroundColor: (theme) =>
-					theme.palette.mode === "dark"
-						? "neutral.800"
-						: "neutral.100",
-				p: 3,
-			}}
-		>
-			<Card>
-				<CardHeader title="Sales Revenue" />
-				<CardContent>
-					<Chart
-						height={300}
-						width={1000}
-						options={chartOptions}
-						series={chartSeries}
-						type="area"
-					/>
-				</CardContent>
-			</Card>
-		</Box>
+		<Card sx={{ width: "100%" }}>
+			<CardHeader title={title} />
+			<CardContent>
+				<Chart
+					width="100%"
+					height="400px"
+					options={chartOptions}
+					series={chartSeries}
+					type="area"
+				/>
+			</CardContent>
+		</Card>
 	);
 };
 

@@ -1,4 +1,5 @@
 import { useTheme } from "@mui/material/styles";
+import numeral from "numeral";
 
 const getChartData = (data, resultMetadata, options) => {
 	const cols = resultMetadata.length,
@@ -18,13 +19,12 @@ const getChartData = (data, resultMetadata, options) => {
 					chartSeries[i - 1].name = name;
 				}
 
-				chartSeries[i - 1].data.push(data[j][name]);
+				chartSeries[i - 1].data.push(numeral(data[j][name]).value());
 			}
 		}
 	}
 
-	console.log("valuesX", valuesX);
-	console.log("resultMetadata", resultMetadata);
+	// console.log("valuesX", valuesX, "chartSeries", chartSeries);
 
 	const transformValues = (values, unit) => {
 		const days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];

@@ -1,37 +1,22 @@
-import React, { useEffect } from "react";
-import useAxios from "axios-hooks";
+import React from "react";
 import Dashcard from "./dashcard";
+import useGetDashboard from "../hooks/useGetDashboard";
+import styles from "./styles.module.css";
 
-const Dashboard = ({ id = 1 }) => {
-	const [{ data, loading, error }, refetch] = useAxios({
-		url: `http://159.65.156.217:3000/api/dashboard/${id}`,
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-			"X-Metabase-Session": "e7b2c641-a8ec-45c9-b0e1-4d79333eda1d",
-		},
-	});
-
-	useEffect(() => {
-		refetch();
-	}, [id]);
+const Dashboard = ({ dashboardId = 1 }) => {
+	const { data, loading, error } = useGetDashboard(dashboardId);
 
 	if (loading) return <div>Loading...</div>;
 	if (error) return <div>Error: {error.message}</div>;
 
 	return (
-		<div>
-			{data.dashcards.map((card, index) => {
-				if (card.card_id) {
-					return (
-						<Dashcard
-							cardId={card.card_id}
-							resultMetadata={data.card.result_metadata}
-							key={index}
-						/>
-					);
-				}
-			})}
+		<div className={styles.main_container}>
+			{data &&
+				data.dashcards.map((dashcard, index) => {
+					if (dashcard.card_id !== null) {
+						return <Dashcard key={index} dashcard={dashcard} />;
+					}
+				})}
 		</div>
 	);
 };
