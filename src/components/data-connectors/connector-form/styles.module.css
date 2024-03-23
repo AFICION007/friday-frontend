@@ -27,20 +27,20 @@
 	:global(.ant-form-item-label) {
 		padding-bottom: 4px;
 	}
-
-	:global(.ant-form-item-no-colon) {
-		font-size: 15px !important;
-		font-family: "Proxima Nova";
-		font-style: normal;
-		font-weight: 700;
-		line-height: 30px;
-		color: #17181a;
-	}
 }
 
 .labels {
 	display: flex;
 	flex-direction: column;
+}
+
+.label {
+	font-size: 15px !important;
+	font-family: "Proxima Nova";
+	font-style: normal;
+	font-weight: 700;
+	line-height: 30px;
+	color: #17181a;
 }
 
 .sublabel {
@@ -51,6 +51,28 @@
 	font-weight: 500;
 	line-height: 125%;
 	color: #707070;
+}
+
+.advanced_options_collapse {
+	width: 100%;
+
+	:global(.ant-collapse-header) {
+		padding-inline: 0 !important;
+	}
+
+	:global(.ant-collapse-header-text) {
+		font-size: 15px !important;
+		font-family: "Proxima Nova";
+		font-style: normal;
+		font-weight: 700;
+		line-height: 30px;
+		color: rgb(80, 158, 227);
+	}
+
+	:global(.ant-collapse-content-box) {
+		padding-inline: 0 !important;
+		padding-bottom: 0 !important;
+	}
 }
 
 .submit_button {

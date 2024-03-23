@@ -6,7 +6,7 @@ import OptionContent from "../../global/option-content";
 import styles from "./styles.module.css";
 import sideMenuObj from "../../constants";
 
-import maincarat from "../../assets/menuoptions/maincarat.svg";
+import maincarat from "../../../../../../assets/maincarat.svg";
 
 const getOption = (option) => {
 	const optionsMapping = {

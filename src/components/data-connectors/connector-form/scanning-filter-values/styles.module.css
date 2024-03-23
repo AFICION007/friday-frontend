@@ -1,0 +1,65 @@
+.error {
+	margin-bottom: 0;
+	color: #e11d48;
+}
+
+.container {
+	margin-block: 20px 24px;
+	padding: 12px;
+	border: 1px solid rgb(238, 236, 236);
+	border-radius: 4px;
+
+	:global(.ant-radio-wrapper):last-child {
+		width: 100% !important;
+	}
+}
+
+.options_group {
+	width: 100%;
+}
+
+.options_group > :not(:last-child) {
+	margin-bottom: 20px;
+}
+
+.option {
+	width: 100% !important;
+}
+
+.option > span:nth-of-type(2) {
+	padding-inline-start: 20px;
+	width: 100%;
+}
+
+.option_content {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.option_form {
+	display: flex;
+}
+
+.form_item {
+	width: 100%;
+	margin: 0;
+
+	:global(.ant-form-item-label) {
+		display: flex;
+		flex-direction: column;
+		justify-content: flex-end;
+		margin-left: 20px;
+		padding-bottom: 4px;
+	}
+
+	:global(.ant-row) {
+		display: flex;
+		flex-direction: row;
+		flex-wrap: nowrap;
+	}
+}
+
+.active_label {
+	color: #509ee3;
+}

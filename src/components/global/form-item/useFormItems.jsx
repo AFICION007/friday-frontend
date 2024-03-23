@@ -1,5 +1,13 @@
 import { Controller } from "react-hook-form";
-import { Select, DatePicker, Input, Checkbox, InputNumber, Switch } from "antd";
+import {
+	Input,
+	InputNumber,
+	Select,
+	Checkbox,
+	Switch,
+	DatePicker,
+	TimePicker,
+} from "antd";
 
 import UploadButton from "../upload-button";
 import styles from "./styles.module.css";
@@ -12,6 +20,7 @@ const useFormItems = (
 		placeholder = "",
 		items = [],
 		validationRules = {},
+		width = "full",
 	},
 	control
 ) => {
@@ -59,7 +68,7 @@ const useFormItems = (
 				placeholder={placeholder}
 				optionFilterProp="children"
 				size="large"
-				className={styles.select}
+				className={`${styles.select} ${styles[`${width}_select`]}`}
 			>
 				{items.map(({ label, value }) => (
 					<Select.Option key={value} value={value}>
@@ -77,6 +86,12 @@ const useFormItems = (
 			/>
 		),
 
+		checkbox: (
+			<Checkbox {...field} size="large" className={styles.select}>
+				{label}
+			</Checkbox>
+		),
+
 		toggle: (
 			<div className={styles.toggle}>
 				<div className={styles.left}>
@@ -87,18 +102,21 @@ const useFormItems = (
 			</div>
 		),
 
-		checkbox: (
-			<Checkbox {...field} size="large" className={styles.select}>
-				{label}
-			</Checkbox>
-		),
-
 		date: (
 			<DatePicker
 				{...field}
 				placeholder={placeholder}
-				className={styles.date}
 				size="large"
+				className={styles.date}
+			/>
+		),
+
+		hour: (
+			<TimePicker
+				format="h a"
+				use12Hours
+				size="large"
+				className={`${styles.hour} ${styles[`${width}_hour`]}`}
 			/>
 		),
 	});

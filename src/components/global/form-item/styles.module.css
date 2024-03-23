@@ -49,13 +49,12 @@
 .select {
 	flex-shrink: 0;
 	flex-basis: 100%;
-	width: 100%;
 	margin-bottom: 0px;
 
 	:global(.ant-select-selector) {
+		height: 45px !important;
 		background-color: #f1f4f9 !important;
 		border: 1px solid #c8d6e1 !important;
-		height: 45px !important;
 	}
 
 	:global(.ant-select-selection-placeholder) {
@@ -65,6 +64,10 @@
 		line-height: 22px;
 		color: rgba(128, 159, 184, 0.76);
 	}
+}
+
+.half_select {
+	width: calc((100% - 20px) / 2) !important;
 }
 
 /* Toggle styles start*/
@@ -102,4 +105,26 @@
 
 .date {
 	width: 100%;
+}
+
+.hour {
+	width: 100% !important;
+	height: 45px !important;
+	background-color: #f1f4f9 !important;
+	border: 1px solid #c8d6e1 !important;
+
+	:global(.ant-picker-input > input) {
+		font-size: 16px;
+		font-family: "Proxima Nova";
+		font-weight: 500;
+		line-height: 22px;
+	}
+
+	:global(.ant-picker-input > input::placeholder) {
+		color: rgba(128, 159, 184, 0.76) !important;
+	}
+}
+
+.half_hour {
+	width: calc((100% - 20px) / 2) !important;
 }

@@ -117,19 +117,19 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our BigQuery",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Project ID (override)",
 				placeholder: "1w08oDRKPrOqBt06yxY8uiCz2sSvOp3u",
 				type: "text",
-				name: "project_id_override",
+				name: "project_id",
 			},
 			{
 				label: "Service account JSON file",
 				placeholder: "Select a file",
 				type: "file",
-				name: "service_account_json_file",
+				name: "service_account_json",
 			},
 			{
 				label: "Datasets",
@@ -137,21 +137,23 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				type: "select",
 				items: [
 					{ label: "All", value: "all" },
-					{ label: "Only these", value: "only_these" },
-					{ label: "All except", value: "all_except" },
+					{ label: "Only these", value: "inclusion" },
+					{ label: "All except", value: "exclusion" },
 				],
-				name: "datasets",
+				name: "datasets_filters_type",
 			},
 			{
 				label: `Comma separated names of schemas that should ${
-					formValues.datasets === "all_except" ? "NOT" : ""
+					formValues.datasets_filters_type === "all_except"
+						? "NOT"
+						: ""
 				} appear in Metabase`,
 				placeholder: "E.g. public,auth*",
 				type: "textarea",
-				name: "schemas_in_metabase",
+				name: "dataset_filters_patterns",
 				showIf: () =>
-					formValues.datasets === "only_these" ||
-					formValues.datasets === "all_except",
+					formValues.datasets_filters_type === "only_these" ||
+					formValues.datasets_filters_type === "all_except",
 			},
 		],
 		druid: [
