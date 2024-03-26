@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom";
 import CustomButton from "../../global/custom-button";
 import styles from "./styles.module.css";

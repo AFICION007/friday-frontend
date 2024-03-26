@@ -1,5 +1,3 @@
-import React from "react";
-
 import Dashboard from "./dashboard";
 import styles from "./styles.module.css";
 

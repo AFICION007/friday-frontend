@@ -1,4 +1,3 @@
-import React from "react";
 import { Button } from "antd";
 import OptionContent from "../../../../global/option-content";
 import grandparentStyles from "../../styles.module.css";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import DataCard from "./data-card";
 import UploadButton from "../global/upload-button";
 import styles from "./styles.module.css";

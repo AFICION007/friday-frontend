@@ -1,4 +1,3 @@
-import React from "react";
 import { Collapse, Button } from "antd";
 
 import DashboardFolders from "./dashboard-folders";

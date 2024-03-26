@@ -1,4 +1,3 @@
-import React from "react";
 import NumberCard from "../../../global/charts/number-card";
 import SharpLine from "../../../global/charts/sharp-line";
 import useGetDashcard from "../../hooks/useGetDashcard";

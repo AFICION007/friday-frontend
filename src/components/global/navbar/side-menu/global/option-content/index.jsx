@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "./styles.module.css";
 
 const OptionContent = ({ icon, label, dashboard = false }) => {

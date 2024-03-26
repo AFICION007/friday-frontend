@@ -1,4 +1,3 @@
-import React from "react";
 import { Collapse } from "antd";
 import Dashboards from "./dashboards";
 import OptionContent from "../../../global/option-content";

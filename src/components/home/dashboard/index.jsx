@@ -1,4 +1,3 @@
-import React from "react";
 import Dashcard from "./dashcard";
 import useGetDashboard from "../hooks/useGetDashboard";
 import styles from "./styles.module.css";
