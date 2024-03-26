@@ -13,6 +13,21 @@ export const dataSourcesMapping = {
 	sqlite: "SQLite",
 };
 
+export const enginesMapping = {
+	amazon_athena: "athena",
+	amazon_redshift: "redshift",
+	bigquery: "bigquery-cloud-sdk",
+	druid: "druid",
+	mongodb: "mongo",
+	mysql: "mysql",
+	postgresql: "postgres",
+	presto: "presto-jdbc",
+	snowflake: "snowflake",
+	spark_sql: "sparksql",
+	sql_server: "sqlserver",
+	sqlite: "sqlite",
+};
+
 const dataConnectorsObj = {
 	dataSourcesFiles: {
 		title: "Connected Data Sources & Files",

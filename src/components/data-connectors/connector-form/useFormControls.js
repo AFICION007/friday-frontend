@@ -1,17 +1,17 @@
-const useFormControlsMapping = (dataSourceId, formValues) => {
+const useFormControlsMapping = (dataSourceId) => {
 	const formControlsMapping = {
 		amazon_athena: [
 			{
 				label: "Display name",
 				placeholder: "Our Amazon Athena",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Region",
-				name: "region",
 				placeholder: "us-east-1",
 				type: "text",
+				name: "region",
 			},
 			{
 				label: "Workgroup",
@@ -23,7 +23,8 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "S3 staging directory",
 				placeholder: "s3://your_bucket",
 				type: "text",
-				name: "s3_staging_directory",
+				name: "s3_staging_dir",
+				noTransform: true,
 			},
 			{
 				label: "Catalog",
@@ -36,12 +37,14 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder: "",
 				type: "text",
 				name: "access_key",
+				noTransform: true,
 			},
 			{
 				label: "Secret key",
 				placeholder: "••••••••",
 				type: "password",
 				name: "secret_key",
+				noTransform: true,
 			},
 		],
 		amazon_redshift: [
@@ -49,7 +52,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our Amazon Redshift",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -68,7 +71,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name",
 				placeholder: "birds_of_the_world",
 				type: "text",
-				name: "database_name",
+				name: "db",
 			},
 			{
 				label: "Schemas",
@@ -76,27 +79,32 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				type: "select",
 				items: [
 					{ label: "All", value: "all" },
-					{ label: "Only these", value: "only_these" },
-					{ label: "All except", value: "all_except" },
+					{ label: "Only these", value: "inclusion" },
+					{ label: "All except", value: "exclusion" },
 				],
-				name: "schemas",
+				name: "schema_filters_type",
 			},
 			{
-				label: `Comma separated names of schemas that should ${
-					formValues.schemas === "all_except" ? "NOT" : ""
-				} appear in Metabase`,
+				label: `Comma separated names of schemas that should appear in Metabase`,
 				placeholder: "E.g. public,auth*",
 				type: "textarea",
-				name: "schemas_in_metabase",
-				showIf: () =>
-					formValues.schemas === "only_these" ||
-					formValues.schemas === "all_except",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "inclusion",
+			},
+			{
+				label: `Comma separated names of schemas that should NOT appear in Metabase`,
+				placeholder: "E.g. public,auth*",
+				type: "textarea",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "exclusion",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -109,7 +117,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		bigquery: [
@@ -140,20 +148,23 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 					{ label: "Only these", value: "inclusion" },
 					{ label: "All except", value: "exclusion" },
 				],
-				name: "datasets_filters_type",
+				name: "dataset_filters_type",
 			},
 			{
-				label: `Comma separated names of schemas that should ${
-					formValues.datasets_filters_type === "all_except"
-						? "NOT"
-						: ""
-				} appear in Metabase`,
+				label: `Comma separated names of schemas that should appear in Metabase`,
 				placeholder: "E.g. public,auth*",
 				type: "textarea",
 				name: "dataset_filters_patterns",
-				showIf: () =>
-					formValues.datasets_filters_type === "only_these" ||
-					formValues.datasets_filters_type === "all_except",
+				showIf: (formValues) =>
+					formValues?.dataset_filters_type === "inclusion",
+			},
+			{
+				label: `Comma separated names of schemas that should NOT appear in Metabase`,
+				placeholder: "E.g. public,auth*",
+				type: "textarea",
+				name: "dataset_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.dataset_filters_type === "exclusion",
 			},
 		],
 		druid: [
@@ -161,7 +172,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our Druid",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -173,14 +184,14 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Broker node port",
 				placeholder: "8082",
 				type: "number",
-				name: "broker_node_port",
+				name: "port",
 			},
 			{
 				label: "Use an SSH-tunnel",
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		mongodb: [
@@ -188,7 +199,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our MongoDB",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Connection method",
@@ -197,155 +208,146 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				items: [
 					{
 						label: "Fill out individual fields",
-						value: "individual_fields",
+						value: false,
 					},
 					{
 						label: "Paste a connection string",
-						value: "connection_string",
+						value: true,
 					},
 				],
-				name: "connection_method",
+				name: "use_conn_uri",
 			},
 			{
 				label: "Host",
 				placeholder: "name.database.com",
 				type: "text",
 				name: "host",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Database name",
 				placeholder: "birds_of_the_world",
 				type: "text",
-				name: "database_name",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				name: "dbname",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Port",
 				placeholder: "27017",
 				type: "number",
 				name: "port",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				name: "user",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Password",
 				placeholder: "••••••••",
-				type: "password",
+				type: "pass",
 				name: "password",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Authentication database (optional)",
 				placeholder: "admin",
 				type: "text",
-				name: "authentication_database_(optional)",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				name: "authdb",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Use a secure connection (SSL)",
 				placeholder: "",
 				type: "toggle",
-				name: "use_secure_connection",
-				showIf: () =>
-					formValues.connection_method === "individual_fields",
+				name: "ssl",
+				showIf: (formValues) => formValues?.use_conn_uri === false,
 			},
 			{
 				label: "Server SSL certificate chain",
 				placeholder:
 					"Paste the contents of the server's SSL certificate chain here",
 				type: "textarea",
-				name: "server_ssl_certificate_chain",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true,
+				name: "ssl_cert",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true,
 			},
 			{
 				label: "Authenticate client certificate?",
 				placeholder: "",
 				type: "toggle",
-				name: "authenticate_client_certificate",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true,
+				name: "ssl_use_client_auth",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true,
 			},
 			{
 				label: "Client SSL certificate chain (PEM)",
 				placeholder:
 					"Paste the contents of the client's SSL certificate chain here",
 				type: "textarea",
-				name: "client_ssl_certificate_chain_pem",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true,
+				name: "client_ssl_cert",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true,
 			},
 			{
 				label: "Client SSL private key (PEM)",
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "client_ssl_private_key_pem",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true,
+				name: "client_ssl_key_options",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true,
 			},
 			{
 				label: "File path",
 				placeholder: "",
 				type: "text",
-				name: "client_ssl_private_key_pem_file_path",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.client_ssl_private_key_pem === "local_file_path",
+				name: "client_ssl_key_path",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.client_ssl_key_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "client_ssl_private_key_pem_file",
-				showIf: () =>
-					formValues.connection_method === "individual_fields" &&
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.client_ssl_private_key_pem ===
-						"uploaded_file_path",
+				name: "client_ssl_key_value",
+				showIf: (formValues) =>
+					formValues?.use_conn_uri === false &&
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.client_ssl_key_options === "uploaded",
 			},
 			{
 				label: "Paste your connection string",
 				placeholder:
 					"mongodb://[username:password@host1:port1,...hostN:portN]/[dbname]",
 				type: "text",
-				name: "paste_your_connection_string",
-				showIf: () =>
-					formValues.connection_method === "connection_string",
+				name: "conn_uri",
+				showIf: (formValues) => formValues?.use_conn_uri === true,
 			},
 			{
 				label: "Use an SSH-tunnel",
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		mysql: [
@@ -353,7 +355,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our MySQL",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -371,13 +373,13 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name",
 				placeholder: "birds_of_the_world",
 				type: "text",
-				name: "database_name",
+				name: "dbname",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -389,22 +391,22 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Use a secure connection (SSL)",
 				placeholder: "",
 				type: "toggle",
-				name: "use_secure_connection",
+				name: "ssl",
 			},
 			{
 				label: "Server SSL certificate chain",
 				placeholder:
 					"Paste the contents of the server's SSL certificate chain here",
 				type: "textarea",
-				name: "server_ssl_certificate_chain",
-				showIf: () => formValues.use_secure_connection === true,
+				name: "server_ssl",
+				showIf: (formValues) => formValues?.ssl === true,
 			},
 			{
 				label: "Use an SSH-tunnel",
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		postgresql: [
@@ -412,7 +414,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our PostgreSQL",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -430,13 +432,13 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name",
 				placeholder: "birds_of_the_world",
 				type: "text",
-				name: "database_name",
+				name: "dbname",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -450,27 +452,32 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				type: "select",
 				items: [
 					{ label: "All", value: "all" },
-					{ label: "Only these", value: "only_these" },
-					{ label: "All except", value: "all_except" },
+					{ label: "Only these", value: "inclusion" },
+					{ label: "All except", value: "exclusion" },
 				],
-				name: "schemas",
+				name: "schema_filters_type",
 			},
 			{
-				label: `Comma separated names of schemas that should ${
-					formValues.schemas === "all_except" ? "NOT" : ""
-				} appear in Metabase`,
+				label: `Comma separated names of schemas that should appear in Metabase`,
 				placeholder: "E.g. public,auth*",
 				type: "textarea",
-				name: "schemas_in_metabase",
-				showIf: () =>
-					formValues.schemas === "only_these" ||
-					formValues.schemas === "all_except",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "inclusion",
+			},
+			{
+				label: `Comma separated names of schemas that should NOT appear in Metabase`,
+				placeholder: "E.g. public,auth*",
+				type: "textarea",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "exclusion",
 			},
 			{
 				label: "Use a secure connection (SSL)",
 				placeholder: "",
 				type: "toggle",
-				name: "use_secure_connection",
+				name: "ssl",
 			},
 			{
 				label: "SSL Mode",
@@ -480,91 +487,91 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 					{ label: "allow", value: "allow" },
 					{ label: "prefer", value: "prefer" },
 					{ label: "require", value: "require" },
-					{ label: "verify-ca", value: "verify_ca" },
-					{ label: "verify-full", value: "verify_full" },
+					{ label: "verify-ca", value: "verify-ca" },
+					{ label: "verify-full", value: "verify-full" },
 				],
 				name: "ssl_mode",
-				showIf: () => formValues.use_secure_connection === true,
+				showIf: (formValues) => formValues?.ssl === true,
 			},
 			{
 				label: "SSL Root Certificate (PEM)",
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "ssl_root_certificate",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					(formValues.ssl_mode === "verify_ca" ||
-						formValues.ssl_mode === "verify_full"),
+				name: "ssl_root_cert_options",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					(formValues?.ssl_mode === "verify-ca" ||
+						formValues?.ssl_mode === "verify-full"),
 			},
 			{
 				label: "File path",
 				placeholder: "",
 				type: "text",
-				name: "ssl_root_certificate_file_path",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					(formValues.ssl_mode === "verify_ca" ||
-						formValues.ssl_mode === "verify_full") &&
-					formValues.ssl_root_certificate === "local_file_path",
+				name: "ssl_root_cert_path",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					(formValues?.ssl_mode === "verify-ca" ||
+						formValues?.ssl_mode === "verify-full") &&
+					formValues?.ssl_root_cert_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "ssl_root_certificate_file",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					(formValues.ssl_mode === "verify_ca" ||
-						formValues.ssl_mode === "verify_full") &&
-					formValues.ssl_root_certificate === "uploaded_file_path",
+				name: "ssl_root_cert_value",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					(formValues?.ssl_mode === "verify-ca" ||
+						formValues?.ssl_mode === "verify-full") &&
+					formValues?.ssl_root_cert_options === "uploaded",
 			},
 			{
 				label: "Authenticate client certificate?",
 				placeholder: "",
 				type: "toggle",
-				name: "authenticate_client_certificate",
-				showIf: () => formValues.use_secure_connection === true,
+				name: "ssl_use_client_auth",
+				showIf: (formValues) => formValues?.ssl === true,
 			},
 			{
 				label: "SSL Client Certificate (PEM)",
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "ssl_client_certificate",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true,
+				name: "ssl_client_certificate_options",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true,
 			},
 			{
 				label: "File path",
 				placeholder: "",
 				type: "text",
-				name: "ssl_client_certificate_file_path",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.ssl_client_certificate === "local_file_path",
+				name: "ssl_client_cert_path",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.ssl_client_certificate_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "ssl_client_certificate_file",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.ssl_client_certificate === "uploaded_file_path",
+				name: "ssl_client_cert_value",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.ssl_client_certificate_options === "uploaded",
 			},
 			{
 				label: "SSL Client Key (PKCS-8/DER)",
@@ -573,51 +580,51 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "ssl_client_key",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true,
+				name: "ssl_key_options",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true,
 			},
 			{
 				label: "File path",
 				placeholder: "",
 				type: "text",
-				name: "ssl_client_key_file_path",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.ssl_client_key === "local_file_path",
+				name: "ssl_key_path",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.ssl_key_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "ssl_client_key_file",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true &&
-					formValues.ssl_client_key === "uploaded_file_path",
+				name: "ssl_key_value",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true &&
+					formValues?.ssl_key_options === "uploaded",
 			},
 			{
 				label: "SSL Client Key Password",
 				placeholder: "",
 				type: "password",
-				name: "ssl_client_key_password",
-				showIf: () =>
-					formValues.use_secure_connection === true &&
-					formValues.authenticate_client_certificate === true,
+				name: "ssl_key_password_value",
+				showIf: (formValues) =>
+					formValues?.ssl === true &&
+					formValues?.ssl_use_client_auth === true,
 			},
 			{
 				label: "Use an SSH-tunnel",
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		presto: [
@@ -625,7 +632,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our Presto",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -649,13 +656,13 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Schema (optional)",
 				placeholder: "just_crows",
 				type: "text",
-				name: "schema_(optional)",
+				name: "schema",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -667,97 +674,97 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Use a secure connection (SSL)",
 				placeholder: "",
 				type: "toggle",
-				name: "use_secure_connection",
+				name: "ssl",
 			},
 			{
 				label: "Use SSL server certificate?",
 				placeholder: "",
 				type: "toggle",
-				name: "use_ssl_server_certificate",
-				showIf: () => formValues.use_secure_connection === true,
+				name: "ssl_use_keystore",
+				showIf: (formValues) => formValues?.ssl === true,
 			},
 			{
 				label: "Keystore",
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "keystore",
-				showIf: () => formValues.use_ssl_server_certificate === true,
+				name: "ssl_keystore_options",
+				showIf: (formValues) => formValues?.ssl_use_keystore === true,
 			},
 			{
 				label: "File path",
 				placeholder: "/path/to/keystore.jks",
 				type: "text",
-				name: "keystore_file_path",
-				showIf: () =>
-					formValues.use_ssl_server_certificate === true &&
-					formValues.keystore === "local_file_path",
+				name: "ssl_keystore_path",
+				showIf: (formValues) =>
+					formValues?.ssl_use_keystore === true &&
+					formValues?.ssl_keystore_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "keystore_file",
-				showIf: () =>
-					formValues.use_ssl_server_certificate === true &&
-					formValues.keystore === "uploaded_file_path",
+				name: "ssl_keystore_value",
+				showIf: (formValues) =>
+					formValues?.ssl_use_keystore === true &&
+					formValues?.ssl_keystore_options === "uploaded",
 			},
 			{
 				label: "Keystore password",
 				placeholder: "",
 				type: "password",
-				name: "keystore_password",
-				showIf: () => formValues.use_ssl_server_certificate === true,
+				name: "ssl_keystore_password_value",
+				showIf: (formValues) => formValues?.ssl_use_keystore === true,
 			},
 			{
 				label: "Use SSL truststore?",
 				placeholder: "",
 				type: "toggle",
-				name: "use_ssl_truststore",
-				showIf: () => formValues.use_secure_connection === true,
+				name: "ssl_use_truststore",
+				showIf: (formValues) => formValues?.ssl === true,
 			},
 			{
 				label: "Truststore",
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "truststore",
-				showIf: () => formValues.use_ssl_truststore === true,
+				name: "ssl_truststore_options",
+				showIf: (formValues) => formValues?.ssl_use_truststore === true,
 			},
 			{
 				label: "File path",
 				placeholder: "/path/to/truststore.jks",
 				type: "text",
-				name: "truststore_file_path",
-				showIf: () =>
-					formValues.use_ssl_truststore === true &&
-					formValues.truststore === "local_file_path",
+				name: "ssl_truststore_path",
+				showIf: (formValues) =>
+					formValues?.ssl_use_truststore === true &&
+					formValues?.ssl_truststore_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "truststore_file",
-				showIf: () =>
-					formValues.use_ssl_truststore === true &&
-					formValues.truststore === "uploaded_file_path",
+				name: "ssl_truststore_value",
+				showIf: (formValues) =>
+					formValues?.ssl_use_truststore === true &&
+					formValues?.ssl_truststore_options === "uploaded",
 			},
 			{
 				label: "Truststore password",
 				placeholder: "",
 				type: "password",
-				name: "truststore_password",
-				showIf: () => formValues.use_ssl_truststore === true,
+				name: "ssl_truststore_password_value",
+				showIf: (formValues) => formValues?.ssl_use_truststore === true,
 			},
 		],
 		snowflake: [
@@ -765,19 +772,19 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our Snowflake",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Account name",
 				placeholder: "xxxxxx.us-east-2.aws",
 				type: "text",
-				name: "account_name",
+				name: "account",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -790,27 +797,28 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder: "Select",
 				type: "select",
 				items: [
-					{ label: "Local file path", value: "local_file_path" },
+					{ label: "Local file path", value: "local" },
 					{
 						label: "Uploaded file path",
-						value: "uploaded_file_path",
+						value: "uploaded",
 					},
 				],
-				name: "rsa_private_key",
+				name: "private_key_options",
 			},
 			{
 				label: "File path",
 				placeholder: "",
 				type: "text",
-				name: "rsa_private_key_file_path",
-				showIf: () => formValues.rsa_private_key === "local_file_path",
+				name: "private_key_path",
+				showIf: (formValues) =>
+					formValues?.private_key_options === "local",
 			},
 			{
 				placeholder: "Select a file",
 				type: "file",
-				name: "rsa_private_key_file",
-				showIf: () =>
-					formValues.rsa_private_key === "uploaded_file_path",
+				name: "private_key_value",
+				showIf: (formValues) =>
+					formValues?.private_key_options === "uploaded",
 			},
 			{
 				label: "Warehouse",
@@ -822,7 +830,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name (case sensitive)",
 				placeholder: "birds_of_the_world",
 				type: "text",
-				name: "database_name_(case_sensitive)",
+				name: "db",
 			},
 			{
 				label: "Schemas",
@@ -830,34 +838,39 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				type: "select",
 				items: [
 					{ label: "All", value: "all" },
-					{ label: "Only these", value: "only_these" },
-					{ label: "All except", value: "all_except" },
+					{ label: "Only these", value: "inclusion" },
+					{ label: "All except", value: "exclusion" },
 				],
-				name: "schemas",
+				name: "schema_filters_type",
 			},
 			{
-				label: `Comma separated names of schemas that should ${
-					formValues.schemas === "all_except" ? "NOT" : ""
-				} appear in Metabase`,
+				label: `Comma separated names of schemas that should appear in Metabase`,
 				placeholder: "E.g. public,auth*",
 				type: "textarea",
-				name: "schemas_in_metabase",
-				showIf: () =>
-					formValues.schemas === "only_these" ||
-					formValues.schemas === "all_except",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "inclusion",
+			},
+			{
+				label: `Comma separated names of schemas that should NOT appear in Metabase`,
+				placeholder: "E.g. public,auth*",
+				type: "textarea",
+				name: "schema_filters_patterns",
+				showIf: (formValues) =>
+					formValues?.schema_filters_type === "exclusion",
 			},
 			{
 				label: "Role (required for connection impersonation)",
 				placeholder: "user",
 				type: "text",
-				name: "role_(required_for_connection_impersonation)",
+				name: "role",
 			},
 			{
 				label: "Use an SSH-tunnel",
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		spark_sql: [
@@ -865,7 +878,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our Spark SQL",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -883,13 +896,13 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name",
 				placeholder: "default",
 				type: "text",
-				name: "database_name",
+				name: "dbname",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -902,7 +915,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		sql_server: [
@@ -910,7 +923,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our SQL Server",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Host",
@@ -930,19 +943,19 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Database name",
 				placeholder: "BirdsOfTheWorld",
 				type: "text",
-				name: "database_name",
+				name: "db",
 			},
 			{
 				label: "Database instance name",
 				placeholder: "N/A",
 				type: "text",
-				name: "database_instance_name",
+				name: "instance",
 			},
 			{
 				label: "Username",
 				placeholder: "username",
 				type: "text",
-				name: "username",
+				name: "user",
 			},
 			{
 				label: "Password",
@@ -954,12 +967,12 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Use a secure connection (SSL)",
 				placeholder: "",
 				type: "toggle",
-				name: "use_secure_connection",
+				name: "ssl",
 			},
 			{
 				label: "ROWCOUNT Override",
 				placeholder: "0",
-				type: "number",
+				type: "text",
 				name: "rowcount_override",
 			},
 			{
@@ -967,7 +980,7 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				placeholder:
 					"If a direct connection to your database isn't possible, you may want to use an SSH tunnel.",
 				type: "toggle",
-				name: "use_ssh_tunnel",
+				name: "tunnel_enabled",
 			},
 		],
 		sqlite: [
@@ -975,13 +988,13 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 				label: "Display name",
 				placeholder: "Our SQLite",
 				type: "text",
-				name: "display_name",
+				name: "name",
 			},
 			{
 				label: "Filename",
 				placeholder: "/home/camsaul/toucan_sightings.sqlite",
 				type: "text",
-				name: "filename",
+				name: "db",
 			},
 		],
 	};
@@ -991,64 +1004,64 @@ const useFormControlsMapping = (dataSourceId, formValues) => {
 
 export default useFormControlsMapping;
 
-export const useSshEnabledFormControls = (formValues) => [
+export const sshFormControls = [
 	{
 		label: "SSH tunnel host",
 		placeholder: "hostname",
 		type: "text",
-		name: "ssh_tunnel_host",
-		showIf: () => formValues.use_ssh_tunnel === true,
+		name: "tunnel_host",
+		showIf: (formValues) => formValues?.tunnel_enabled === true,
 	},
 	{
 		label: "SSH tunnel port",
 		placeholder: "22",
 		type: "number",
-		name: "ssh_tunnel_port",
-		showIf: () => formValues.use_ssh_tunnel === true,
+		name: "tunnel_port",
+		showIf: (formValues) => formValues?.tunnel_enabled === true,
 	},
 	{
 		label: "SSH tunnel username",
 		placeholder: "username",
 		type: "text",
-		name: "ssh_tunnel_username",
-		showIf: () => formValues.use_ssh_tunnel === true,
+		name: "tunnel_user",
+		showIf: (formValues) => formValues?.tunnel_enabled === true,
 	},
 	{
 		label: "SSH authentication",
 		placeholder: "Select",
 		type: "select",
 		items: [
-			{ label: "SSH Key", value: "ssh_key" },
+			{ label: "SSH Key", value: "ssh-key" },
 			{ label: "Password", value: "password" },
 		],
-		name: "ssh_authentication",
-		showIf: () => formValues.use_ssh_tunnel === true,
+		name: "tunnel_auth_option",
+		showIf: (formValues) => formValues?.tunnel_enabled === true,
 	},
 	{
 		label: "SSH private key",
 		placeholder: "Paste the contents of your ssh private key here",
 		type: "textarea",
-		name: "ssh_private_key",
-		showIf: () =>
-			formValues.use_ssh_tunnel === true &&
-			formValues.ssh_authentication === "ssh_key",
+		name: "tunnel_private_key",
+		showIf: (formValues) =>
+			formValues?.tunnel_enabled === true &&
+			formValues?.tunnel_auth_option === "ssh-key",
 	},
 	{
 		label: "Passphrase for the SSH private key",
 		placeholder: "••••••••",
 		type: "password",
-		name: "passphrase_for_the_ssh_private_key",
-		showIf: () =>
-			formValues.use_ssh_tunnel === true &&
-			formValues.ssh_authentication === "ssh_key",
+		name: "tunnel_private_key_passphrase",
+		showIf: (formValues) =>
+			formValues?.tunnel_enabled === true &&
+			formValues?.tunnel_auth_option === "ssh-key",
 	},
 	{
 		label: "SSH tunnel password",
 		placeholder: "••••••••",
 		type: "password",
-		name: "ssh_tunnel_password",
-		showIf: () =>
-			formValues.use_ssh_tunnel === true &&
-			formValues.ssh_authentication === "password",
+		name: "tunnel_pass",
+		showIf: (formValues) =>
+			formValues?.tunnel_enabled === true &&
+			formValues?.tunnel_auth_option === "password",
 	},
 ];

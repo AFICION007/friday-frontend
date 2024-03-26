@@ -113,6 +113,7 @@ const useFormItems = (
 
 		hour: (
 			<TimePicker
+				{...field}
 				format="h a"
 				use12Hours
 				size="large"

@@ -7,15 +7,16 @@ import ScanningFilterValues from "./scanning-filter-values";
 import CustomButton from "../../global/custom-button";
 import useFormItems from "../../global/form-item/useFormItems";
 import styles from "./styles.module.css";
-import useFormControlsMapping, {
-	useSshEnabledFormControls,
-} from "./useFormControls";
+import useFormControlsMapping, { sshFormControls } from "./useFormControls";
 import {
-	useCommonFormControls,
 	useAdvancedControls,
+	commonAdvancedFormControls,
 } from "./useAdvancedControls";
-import { dataSourcesMapping } from "../constants";
 
+import formSchema from "./jsonSchemas";
+import { defaultValuesMapping, commonDefaultValues } from "./defaultValues";
+
+import { dataSourcesMapping } from "../constants";
 import maincarat from "../../../assets/maincarat.svg";
 
 const Labels = ({ formControl }) => (
@@ -27,8 +28,8 @@ const Labels = ({ formControl }) => (
 	</div>
 );
 
-const renderFormControls = (formControl, control, formValues) => {
-	if (formControl.showIf && !formControl.showIf()) {
+const renderFormControls = (formControl, formValues, control) => {
+	if (formControl.showIf && !formControl.showIf(formValues)) {
 		return null;
 	}
 
@@ -62,24 +63,27 @@ const renderFormControls = (formControl, control, formValues) => {
 const ConnectorForm = () => {
 	const { dataSourceId } = useParams();
 
-	const { control, handleSubmit, watch } = useForm();
+	const { control, handleSubmit, watch } = useForm({
+		defaultValues: {
+			...defaultValuesMapping[dataSourceId],
+			...commonDefaultValues,
+		},
+	});
 	const formValues = watch();
-	const primaryFormControls = useFormControlsMapping(
-		dataSourceId,
-		formValues
-	);
-	const sshFormControls = useSshEnabledFormControls(formValues);
-	const advancedFormControls = useAdvancedControls(dataSourceId, formValues);
-	const commonFormControls = useCommonFormControls(formValues);
+	const primaryFormControls = useFormControlsMapping(dataSourceId);
+	const advancedFormControls = useAdvancedControls(dataSourceId);
+
+	const [activeKeys, setActiveKeys] = useState([]);
+	const onCollapseChange = (keys) => {
+		setActiveKeys(keys);
+	};
 
 	const onSubmit = (data) => {
 		console.log("Form data:", data);
-	};
-
-	const [activeKeys, setActiveKeys] = useState([]);
-	console.log("key", activeKeys);
-	const onCollapseChange = (keys) => {
-		setActiveKeys(keys);
+		console.log(
+			"Network payload",
+			formSchema(data, dataSourceId, activeKeys.length !== 0)
+		);
 	};
 
 	return (
@@ -95,7 +99,7 @@ const ConnectorForm = () => {
 				{[primaryFormControls, sshFormControls]
 					.flat()
 					.map((formControl) =>
-						renderFormControls(formControl, control)
+						renderFormControls(formControl, formValues, control)
 					)}
 
 				<Collapse
@@ -116,13 +120,13 @@ const ConnectorForm = () => {
 						}
 						key={"1"}
 					>
-						{[advancedFormControls, commonFormControls]
+						{[advancedFormControls, commonAdvancedFormControls]
 							.flat()
 							.map((formControl) =>
 								renderFormControls(
 									formControl,
-									control,
-									formValues
+									formValues,
+									control
 								)
 							)}
 					</Collapse.Panel>

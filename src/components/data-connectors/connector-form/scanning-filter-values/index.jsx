@@ -5,61 +5,46 @@ import { Form, Radio } from "antd";
 import useFormItems from "../../../global/form-item/useFormItems";
 import parentStyles from "../styles.module.css";
 import styles from "./styles.module.css";
+import cacheSyncFormControls from "./cacheSyncFormControls";
 
 const useOptionsArray = (control, formValues) => {
-	const formControls = [
-		{
-			label: "",
-			placeholder: "Select",
-			type: "select",
-			items: [
-				{ label: "Daily", value: "daily" },
-				{ label: "Weekly", value: "weekly" },
-				{ label: "Monthly", value: "monthly" },
-			],
-			name: "scanning_filter_values_timedifference",
-			width: "full",
-		},
-		{
-			label: "at",
-			placeholder: "",
-			type: "hour",
-			name: "scanning_filter_values_at_time",
-			width: "full",
-		},
-	];
-
 	return [
 		{
 			Content: (
 				<div className={styles.option_content}>
 					<span
 						className={`${parentStyles.label} ${
-							formValues.scanning_filter_values === "regularly" &&
-							styles.active_label
+							formValues.cache_sync_field_values ===
+								"regularly" && styles.active_label
 						}`}
 					>
 						Regularly, on a schedule
 					</span>
-					{formValues.scanning_filter_values === "regularly" && (
+					{formValues.cache_sync_field_values === "regularly" && (
 						<div className={styles.option_form}>
-							{formControls.map((formControl) => (
-								<Form.Item
-									label={
-										formControl.label !== "" && (
-											<span
-												className={parentStyles.label}
-											>
-												{formControl.label}
-											</span>
-										)
-									}
-									colon={false}
-									className={styles.form_item}
-								>
-									{useFormItems(formControl, control)}
-								</Form.Item>
-							))}
+							{cacheSyncFormControls.map(
+								(formControl) =>
+									(!formControl.showIf ||
+										formControl.showIf(formValues)) && (
+										<Form.Item
+											label={
+												formControl.label !== "" && (
+													<span
+														className={
+															parentStyles.label
+														}
+													>
+														{formControl.label}
+													</span>
+												)
+											}
+											colon={false}
+											className={styles.form_item}
+										>
+											{useFormItems(formControl, control)}
+										</Form.Item>
+									)
+							)}
 						</div>
 					)}
 				</div>
@@ -71,13 +56,13 @@ const useOptionsArray = (control, formValues) => {
 				<div className={styles.option_content}>
 					<span
 						className={`${parentStyles.label} ${
-							formValues.scanning_filter_values === "only_when" &&
-							styles.active_label
+							formValues.cache_sync_field_values ===
+								"only_when" && styles.active_label
 						}`}
 					>
 						Only when adding a new filter widget
 					</span>
-					{formValues.scanning_filter_values === "only_when" && (
+					{formValues.cache_sync_field_values === "only_when" && (
 						<span className={parentStyles.sublabel}>
 							When a user adds a new filter to a dashboard or a
 							SQL question, Metabase will scan the field(s) mapped
@@ -93,7 +78,7 @@ const useOptionsArray = (control, formValues) => {
 			Content: (
 				<span
 					className={`${parentStyles.label} ${
-						formValues.scanning_filter_values === "never" &&
+						formValues.cache_sync_field_values === "never" &&
 						styles.active_label
 					}`}
 				>
@@ -111,7 +96,7 @@ const ScanningFilterValues = ({ control, formValues }) => {
 	return (
 		<div className={styles.container}>
 			<Controller
-				name="scanning_filter_values"
+				name="cache_sync_field_values"
 				control={control}
 				render={({ field, fieldState: { error } }) => (
 					<>
